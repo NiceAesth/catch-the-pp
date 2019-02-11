@@ -1,5 +1,5 @@
-import constants
-from osu_parser.mathhelper import clamp, sign
+import commons.catchthepp.constants as constants
+from commons.catchthepp.osu_parser.mathhelper import clamp, sign
 
 class DifficultyObject(object):
     """
@@ -166,7 +166,6 @@ class Difficulty(object):
         last_direction = 0
         player_width_half = self.player_width / 2
         player_width_half *= 0.8
-        print("player_width_half: {}".format(player_width_half))
         last = player_width_half
 
         for i in range(len(self.difficulty_objects) - 1):

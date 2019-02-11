@@ -1,16 +1,17 @@
-from osu_parser import mathhelper
-from osu_parser.hitobject import HitObject
+from commons.catchthepp.osu_parser import mathhelper
+from commons.catchthepp.osu_parser.hitobject import HitObject
+from io import StringIO
 
 class Beatmap(object):
     """
     Beatmap object for beatmap parsing and handling
     """
 
-    def __init__(self, file_name):
+    def __init__(self, bmap):
         """
-        file_name -- Directory for beatmap file (.osu)
+        bmap -- Directory for beatmap file (.osu)
         """
-        self.file_name = file_name
+        self.bmap = bmap
         self.version = -1   #Unknown by default
         self.header = -1
         self.difficulty = {}
@@ -24,23 +25,20 @@ class Beatmap(object):
         self.hitobjects = []
         self.max_combo = 0
         self.parse_beatmap()
-
         if "ApproachRate" not in self.difficulty.keys():    #Fix old osu version
             self.difficulty["ApproachRate"] = self.difficulty["OverallDifficulty"]
-
-        print("Beatmap parsed!")
 
     def parse_beatmap(self):
         """
         Parses beatmap file line by line by passing each line into parse_line.
         """
-        with open(self.file_name, encoding="utf8") as file_stream:
-            ver_line = ""
-            while len(ver_line) < 2: #Find the line where beatmap version is spesified (normaly first line)
-                ver_line = file_stream.readline()
-            self.version = int(''.join(list(filter(str.isdigit, ver_line))))  #Set version
-            for line in file_stream:
-                self.parse_line(line.replace("\n", ""))
+        ver_line = ""
+        while len(ver_line) < 2: #Find the line where beatmap version is specified (normaly first line)
+            ver_line = self.bmap.readline()
+        self.version = int(''.join(list(filter(str.isdigit, ver_line))))  #Set version
+        for line in self.bmap:
+            line = line.rstrip()
+            self.parse_line(line.replace("\n", ""))
 
     def parse_line(self, line):
         """
