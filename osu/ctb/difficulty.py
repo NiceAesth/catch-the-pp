@@ -1,5 +1,5 @@
-import commons.catchthepp.constants as constants
-from commons.catchthepp.osu_parser.mathhelper import clamp, sign
+import commons.osu.catchthepp.constants as constants
+from commons.osu.catchthepp.osu_parser.mathhelper import clamp, sign
 
 class DifficultyObject(object):
     """

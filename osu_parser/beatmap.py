@@ -1,5 +1,5 @@
-from commons.catchthepp.osu_parser import mathhelper
-from commons.catchthepp.osu_parser.hitobject import HitObject
+from commons.osu.catchthepp.osu_parser import mathhelper
+from commons.osu.catchthepp.osu_parser.hitobject import HitObject
 from io import StringIO
 
 class Beatmap(object):
